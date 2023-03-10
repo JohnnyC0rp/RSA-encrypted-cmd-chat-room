@@ -1,0 +1,6 @@
+**/__pycache__/
+**/downloads/
+**/rsa_keys/
+.vscode/
+Server/bans.txt
+Server/history.csv
