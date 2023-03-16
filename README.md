@@ -1,6 +1,6 @@
 # RSA encrypted cmd chat room
 
-This chat room on python working from cmd, it supports rsa asynchronous encryption and basic features like kicking, blocking, banning users, transferring files etc. For secure filetranfer sha256 hashing is implemented
+This chat room on python working from cmd, it supports rsa asymmetric encryption and basic features like kicking, blocking, banning users, transferring files etc. For secure filetranfer sha256 hashing is implemented
 
 **Features:**
 
