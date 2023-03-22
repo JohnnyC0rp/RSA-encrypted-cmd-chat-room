@@ -14,7 +14,8 @@ COMMANDS = ["/ban",
             "/participants",
             "/get_file",
             "/preview",
-            "/view_files"]
+            "/view_files",
+            "/quit or /exit"]
 ADMIN_PASS = "admin"
 NICK_MAX_LEN = 20
 DOWNLOADS_FOLDER_NAME = "downloads"

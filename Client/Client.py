@@ -35,7 +35,15 @@ class FileHandler(socket.socket):
         self.decryptor.key = [self.encryptor.key,
                               self.encryptor.nonce]
         addr[1] = int(addr[1])
-        super().connect(tuple(addr))
+        try:
+            super().connect(tuple(addr))
+        except:
+            print(
+                "File socket connection failed. Try to reconnect if you want to send or receive files")
+            self.connected = False
+            return
+        else:
+            self.connected = True
 
         print("Establishing secure connection for file transfer...")
         public_key = super().recv(251)
@@ -69,6 +77,9 @@ class FileHandler(socket.socket):
         self.recv_thread.start()
 
     def send(self, file):
+        if not self.connected:
+            print("Sorry, file socket is not connected.")
+            return
 
         if not exists(file):
             print(
@@ -103,6 +114,9 @@ class FileHandler(socket.socket):
         return stat(file).st_size == 0
 
     def receive(self):
+        if not self.connected:
+            print("Sorry, file socket is not connected.")
+            return
         while 1:
             name_len = int(self.decryptor.decrypt(self.recv(HEADER)).decode())
             name = self.decryptor.decrypt(self.recv(name_len)).decode()
@@ -207,6 +221,9 @@ class Client(socket.socket):
                 sending_thread.start()
             elif msg == "/exit" or msg == "/quit":
                 _exit(0)
+            elif msg[:9] == "/get_file" and not self.file_handler.connected:
+                print("Sorry, file socket is not connected.")
+
             else:
                 self.send(msg)
 
